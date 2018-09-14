@@ -1,0 +1,3 @@
+rootProject.name = 'DDT_TASK'
+include 'DDT'
+
