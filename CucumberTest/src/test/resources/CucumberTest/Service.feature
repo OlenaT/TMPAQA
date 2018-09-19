@@ -2,5 +2,6 @@ Feature: Does Service work fine?
 
   Scenario: Service should return successful response
 
-    When Send request
-    Then Verify returned data is correct
+    Given I send request to the service
+    When I recieve the response
+    Then Verify returned temperature is 26.3

@@ -40,7 +40,7 @@ public class TestRunner {
     @Test(dataProvider = "DataProvider")
     public void verifyWeatherInfo(String field, String value) {
         Map<String, Object> data = restClient.getData();
-        assertEquals(data.get(field).toString(), value);
+        assertEquals(data.get(field).toString(), value, "");
     }
 
 }

@@ -8,9 +8,6 @@ import org.junit.runner.RunWith;
 
 import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
 import static com.codeborne.selenide.WebDriverRunner.setWebDriver;
-import static java.lang.System.setProperty;
-import static utils.Constants.CHROME_DRIVER;
-import static utils.Constants.GECKO_DRIVER;
 import static utils.CustomWebDriverProvider.createDriver;
 
 @RunWith(Cucumber.class)
@@ -19,8 +16,6 @@ public class RunCucumberTest {
 
     @BeforeClass
     public static void setup() {
-        setProperty("webdriver.chrome.driver", CHROME_DRIVER);
-        setProperty("webdriver.gecko.driver", GECKO_DRIVER);
         setWebDriver(createDriver());
     }
 

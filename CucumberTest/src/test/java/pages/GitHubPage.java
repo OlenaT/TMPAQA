@@ -2,6 +2,8 @@ package pages;
 
 import com.codeborne.selenide.SelenideElement;
 
+import static com.codeborne.selenide.Condition.exist;
+import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.$;
 
 /**
@@ -10,17 +12,11 @@ import static com.codeborne.selenide.Selenide.$;
 public class GitHubPage {
 
     /**
-     * Instantiates a new Git hub page.
-     */
-    public GitHubPage() {
-    }
-
-    /**
      * Get contact sales button selenide element.
      *
      * @return the selenide element
      */
-    public SelenideElement getContactSalesButton(){
+    private SelenideElement getContactSalesButton(){
         return $(".mb-3 a.btn-mktg");
     }
 
@@ -29,7 +25,7 @@ public class GitHubPage {
      *
      * @return the selenide element
      */
-    public SelenideElement getContactSalesForm(){
+    private SelenideElement getContactSalesForm(){
         return $(".featurette.featurette-single");
     }
 
@@ -38,7 +34,7 @@ public class GitHubPage {
      *
      * @return the selenide element
      */
-    public SelenideElement getFormTitle(){
+    private SelenideElement getFormTitle(){
         return $(".display-heading-2.mb-3");
     }
 
@@ -47,7 +43,7 @@ public class GitHubPage {
      *
      * @return the selenide element
      */
-    public SelenideElement getFeaturesTab(){
+    private SelenideElement getFeaturesTab(){
         return $(".ml-lg-2 a");
     }
 
@@ -56,7 +52,7 @@ public class GitHubPage {
      *
      * @return the selenide element
      */
-    public SelenideElement getFeaturesForm(){
+    private SelenideElement getFeaturesForm(){
         return $(".container-lg.p-responsive.position-relative.text-center");
     }
 
@@ -65,8 +61,39 @@ public class GitHubPage {
      *
      * @return the selenide element
      */
-    public SelenideElement getFeaturesFormTitle(){
+    private SelenideElement getFeaturesFormTitle(){
         return $(".h00-mktg.lh-condensed.mb-3.text-white");
+    }
+
+    /**
+     * Click features tab.
+     */
+    public void clickFeaturesTab(){
+        getFeaturesTab().click();
+    }
+
+    public void clickContactSalesButton(){
+        getContactSalesButton().should(exist).click();
+    }
+
+    /**
+     * Get form title text string.
+     *
+     * @return the string
+     */
+    public String getFormTitleText(){
+        getContactSalesForm().shouldBe(visible);
+        return getFormTitle().getText();
+    }
+
+    /**
+     * Get features form title text string.
+     *
+     * @return the string
+     */
+    public String getFeaturesFormTitleText(){
+        getFeaturesForm().shouldBe(visible);
+        return getFeaturesFormTitle().getText();
     }
 
 }

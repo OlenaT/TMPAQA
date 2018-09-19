@@ -19,10 +19,9 @@ public class PropertiesFactory {
      * @return property
      */
     public static String getProperty(String property) {
-        String propertiesFile = "cucumber.properties";
         Properties prop = new Properties();
         ClassLoader loader = currentThread().getContextClassLoader();
-        InputStream stream = loader.getResourceAsStream(propertiesFile);
+        InputStream stream = loader.getResourceAsStream("cucumber.properties");
         try {
             prop.load(stream);
         } catch (IOException e) {

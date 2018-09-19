@@ -4,13 +4,14 @@ import org.json.JSONObject;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.web.client.RestTemplate;
-import utils.PropertiesFactory;
 
 import java.util.Map;
 
+import static utils.PropertiesFactory.getProperty;
+
 public class ServiceClient {
 
-    private String restUri = PropertiesFactory.getProperty("rest.url");
+    private static final String GET_AEMET_STATION = "/getAemetStation/aeropuertopalma/lastdata";
 
     /**
      * Get boxscore rest response json wrapper.
@@ -18,7 +19,7 @@ public class ServiceClient {
      * @return the rest response json wrapper
      */
     public Map<String, Object> getData(){
-        String uri = restUri + "/getAemetStation/aeropuertopalma/lastdata";
+        String uri = getProperty("rest.url") + GET_AEMET_STATION;
         ResponseEntity<String> data = getRestTemplate().getForEntity(uri, String.class);
         JSONObject obj = new JSONObject(data.getBody());
         return obj.toMap();

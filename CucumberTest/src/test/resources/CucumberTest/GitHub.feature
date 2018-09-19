@@ -4,10 +4,10 @@ Feature: Does GitHub work fine?
 
     Given Open GitHub page
     When Click Contact Sales button
-    Then Contact Sales form should be visible
+    Then Contact Sales form title should be "Contact our Sales Team"
 
   Scenario: Features tab should be enabled
 
     Given Open GitHub page
     When Open Features tab
-    Then Features tab should be visible
+    Then Features tab title should be "How developers work"

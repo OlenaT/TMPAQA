@@ -9,23 +9,34 @@ import org.openqa.selenium.firefox.FirefoxProfile;
 
 import java.util.HashMap;
 
+import static io.github.bonigarcia.wdm.WebDriverManager.chromedriver;
+import static io.github.bonigarcia.wdm.WebDriverManager.firefoxdriver;
+import static java.lang.System.getProperty;
+
 
 public class CustomWebDriverProvider {
 
-    private static String browser = PropertiesFactory.getProperty("browser");
-
+    /**
+     * Create driver web driver.
+     *
+     * @return the web driver
+     */
     public static WebDriver createDriver() {
         WebDriver webDriver;
-        switch (browser) {
+        switch (getProperty("browser")) {
             case "FIREFOX":
+                firefoxdriver().setup();
                 webDriver = new FirefoxDriver(getFirefoxProfile());
                 webDriver.manage().window().maximize();
                 break;
             case "CHROME":
+                chromedriver().setup();
                 webDriver = new ChromeDriver(getChromeOptions());
                 break;
             default:
-                throw new IllegalArgumentException("Incorrect webdriver provided");
+                chromedriver().setup();
+                webDriver = new ChromeDriver(getChromeOptions());
+                break;
         }
         return webDriver;
     }
