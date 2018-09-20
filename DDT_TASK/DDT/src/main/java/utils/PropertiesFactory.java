@@ -8,6 +8,8 @@ import static java.lang.Thread.currentThread;
 
 public class PropertiesFactory {
 
+    private static final String TEST_PROPERTIES = "test.properties";
+
     /**
      * Instantiates a new Properties utils.
      */
@@ -19,10 +21,9 @@ public class PropertiesFactory {
      * @return property
      */
     public static String getProperty(String property) {
-        String propertiesFile = "test.properties";
         Properties prop = new Properties();
         ClassLoader loader = currentThread().getContextClassLoader();
-        InputStream stream = loader.getResourceAsStream(propertiesFile);
+        InputStream stream = loader.getResourceAsStream(TEST_PROPERTIES);
         try {
             prop.load(stream);
         } catch (IOException e) {

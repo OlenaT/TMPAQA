@@ -3,8 +3,10 @@ package utils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.apache.poi.hssf.usermodel.HSSFCell;
+import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.ss.usermodel.DataFormatter;
 
 import java.io.FileInputStream;
 
@@ -18,43 +20,43 @@ public class ExcelParser {
     /**
      * Get table array object [ ] [ ].
      *
-     * @param FilePath  the file path
-     * @param SheetName the sheet name
+     * @param filePath  the file path
+     * @param sheetName the sheet name
      * @return the object [ ] [ ]
      * @throws Exception the exception
      */
-    public Object[][] getTableArray(String FilePath, String SheetName) throws Exception {
+    public Object[][] getTableArray(String filePath, String sheetName) throws Exception {
+        DataFormatter formatter= new DataFormatter();
+        FileInputStream fileInputStream= new FileInputStream(filePath);
+        HSSFWorkbook workbook = new HSSFWorkbook (fileInputStream);
+        HSSFSheet worksheet=workbook.getSheet(sheetName);
+        HSSFRow rowHeader = worksheet.getRow(0);
 
-        Object[][] tabArray;
-        FileInputStream ExcelFile = new FileInputStream(FilePath);
-        HSSFWorkbook excelWBook = new HSSFWorkbook(ExcelFile);
-        HSSFSheet excelWSheet = excelWBook.getSheet(SheetName);
+        int rowNum = worksheet.getPhysicalNumberOfRows();
+        int colNum= rowHeader.getLastCellNum();
 
-        int startRow = 0;
-        int startCol = 0;
-        int ci =0 ,cj;
-        int totalRows = excelWSheet.getLastRowNum()+1;
-        int totalCols = excelWSheet.getRow(0).getLastCellNum();
+        Object data[][]= new Object[rowNum-1][colNum];
 
-        tabArray=new String[totalRows][totalCols];
+        for(int i=0; i < rowNum-1; i++) {
+            HSSFRow row= worksheet.getRow(i+1);
 
-        for (int i=startRow; i < totalRows; i++, ci++) {
-            cj=0;
-            for (int j=startCol; j < totalCols; j++, cj++){
-                tabArray[ci][cj]=getCellData(excelWSheet, i, j);
-                logger.info(tabArray[ci][cj]);
+            for (int j=0; j<colNum; j++) {
+                if(row==null) {
+                    data[i][j] = "";
+                } else {
+                    HSSFCell cell= row.getCell(j);
+                    if(cell==null) {
+                        data[i][j] = "";
+                    }
+                    else {
+                        String value = formatter.formatCellValue(cell);
+                        data[i][j] = value;
+                        logger.info("Cell value: {}", value);
+                    }
+                }
             }
         }
-        return tabArray;
-    }
 
-    private Object getCellData(HSSFSheet excelWSheet, int RowNum, int ColNum)  {
-       HSSFCell cell = excelWSheet.getRow(RowNum).getCell(ColNum);
-       if("NUMERIC".equals(cell.getCellType().name())){
-           return String.valueOf(cell.getNumericCellValue());
-       }else if("BLANK".equals(cell.getCellType().name())){
-           return "";
-       }
-       return cell.getStringCellValue();
+        return data;
     }
 }

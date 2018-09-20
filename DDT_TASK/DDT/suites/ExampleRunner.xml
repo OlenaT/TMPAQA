@@ -1,0 +1,12 @@
+<!DOCTYPE suite SYSTEM "http://beust.com/testng/testng-1.0.dtd" >
+<suite name="Example Tests" parallel="classes" thread-count="2">
+    <listeners>
+        <listener class-name="org.uncommons.reportng.HTMLReporter"/>
+    </listeners>
+
+    <test name="Example Tests" verbose="1">
+            <classes>
+                <class name="tests.ExampleTests"/>
+            </classes>
+    </test>
+</suite>
