@@ -52,7 +52,7 @@ public class CustomWebDriverProvider {
         browser.setCapability("enableVNC", true);
         browser.setCapability("enableVideo",true);
         try {
-            RemoteWebDriver driver = new RemoteWebDriver(URI.create("http://localhost:4444/wd/hub").toURL(), browser);
+            RemoteWebDriver driver = new RemoteWebDriver(URI.create("http://10.0.75.1:4444/wd/hub").toURL(), browser);
             driver.manage().window().setSize(new Dimension(1280, 1024));
             return driver;
         } catch (MalformedURLException e) {
