@@ -4,4 +4,4 @@ Feature: Does Service work fine?
 
     Given I send request to the service
     When I recieve the response
-    Then Verify returned temperature is 24.1
+    Then Verify returned temperature is 21.4

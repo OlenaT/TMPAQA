@@ -8,7 +8,7 @@ import org.junit.runner.RunWith;
 
 import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
 import static com.codeborne.selenide.WebDriverRunner.setWebDriver;
-import static utils.CustomWebDriverProvider.createDriver;
+import static utils.CustomWebDriverProvider.createDriverSelenoid;
 
 @RunWith(Cucumber.class)
 @CucumberOptions(plugin = {"pretty", "json:target/cucumber.json", "html:target/cucumber.html"})
@@ -16,7 +16,7 @@ public class RunCucumberTest {
 
     @BeforeClass
     public static void setup() {
-        setWebDriver(createDriver());
+        setWebDriver(createDriverSelenoid());
     }
 
     @AfterClass

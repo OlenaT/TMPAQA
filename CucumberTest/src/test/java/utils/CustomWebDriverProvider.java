@@ -1,12 +1,17 @@
 package utils;
 
+import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.firefox.FirefoxProfile;
+import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.remote.RemoteWebDriver;
 
+import java.net.MalformedURLException;
+import java.net.URI;
 import java.util.HashMap;
 
 import static io.github.bonigarcia.wdm.WebDriverManager.chromedriver;
@@ -39,6 +44,20 @@ public class CustomWebDriverProvider {
                 break;
         }
         return webDriver;
+    }
+
+    public static WebDriver createDriverSelenoid() {
+        DesiredCapabilities browser = new DesiredCapabilities();
+        browser.setBrowserName(getProperty("browser"));
+        browser.setCapability("enableVNC", true);
+        browser.setCapability("enableVideo",true);
+        try {
+            RemoteWebDriver driver = new RemoteWebDriver(URI.create("http://localhost:4444/wd/hub").toURL(), browser);
+            driver.manage().window().setSize(new Dimension(1280, 1024));
+            return driver;
+        } catch (MalformedURLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     private static FirefoxOptions getFirefoxProfile() {

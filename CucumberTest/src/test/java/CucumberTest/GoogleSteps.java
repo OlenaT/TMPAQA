@@ -8,7 +8,7 @@ import pages.GoogleSearchPage;
 import java.util.function.Supplier;
 
 import static com.codeborne.selenide.Selenide.open;
-import static org.junit.Assert.assertEquals;
+import static org.hamcrest.MatcherAssert.assertThat;
 import static utils.PropertiesFactory.getProperty;
 
 /**
@@ -42,6 +42,6 @@ public class GoogleSteps {
      */
     @Then("I should see search results \"([^\"]*)\"")
     public void verifySearchResults(String expectedResultsText) {
-        assertEquals("Search results are not equal!", expectedResultsText, googleSearchPage.get().getResultsLabelText());
+        assertThat("Search results are not equal!", googleSearchPage.get().getResultsLabelText().contains(expectedResultsText));
     }
 }
