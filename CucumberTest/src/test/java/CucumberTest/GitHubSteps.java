@@ -36,6 +36,8 @@ public class GitHubSteps {
 
     /**
      * Verify search results.
+     *
+     * @param expectedTitle the expected title
      */
     @Then("Contact Sales form title should be \"([^\"]*)\"")
     public void verifyContactSalesForm(String expectedTitle) {
@@ -52,6 +54,14 @@ public class GitHubSteps {
     }
 
     /**
+     * Open business tab.
+     */
+    @When("Open Business tab")
+    public void openBusinessTab() {
+        gitHubPage.get().clickBusinessTab();
+    }
+
+    /**
      * Verify search results.
      *
      * @param expectedTitle the expected title
@@ -59,5 +69,15 @@ public class GitHubSteps {
     @Then("Features tab title should be \"([^\"]*)\"")
     public void verifyFeaturesTab(String expectedTitle) {
         assertEquals("Form title is incorrect!", expectedTitle, gitHubPage.get().getFeaturesFormTitleText());
+    }
+
+    /**
+     * Verify business tab.
+     *
+     * @param expectedTitle the expected title
+     */
+    @Then("Business tab title should be \"([^\"]*)\"")
+    public void verifyBusinessTab(String expectedTitle) {
+        assertEquals("Form title is incorrect!", expectedTitle, gitHubPage.get().getBusinessFormTitleText());
     }
 }

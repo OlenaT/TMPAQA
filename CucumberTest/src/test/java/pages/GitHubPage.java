@@ -5,6 +5,7 @@ import com.codeborne.selenide.SelenideElement;
 import static com.codeborne.selenide.Condition.exist;
 import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.$;
+import static com.codeborne.selenide.Selenide.$$;
 
 /**
  * The type Git hub page.
@@ -47,6 +48,10 @@ public class GitHubPage {
         return $(".ml-lg-2 a");
     }
 
+    private SelenideElement getBusinessTab(){
+        return $$(".ml-lg-4 a").first();
+    }
+
     /**
      * Get features form selenide element.
      *
@@ -54,6 +59,10 @@ public class GitHubPage {
      */
     private SelenideElement getFeaturesForm(){
         return $(".container-lg.p-responsive.position-relative.text-center");
+    }
+
+    private SelenideElement getBusinessForm(){
+        return $(".container-lg.p-responsive.text-center.pb-5");
     }
 
     /**
@@ -72,6 +81,16 @@ public class GitHubPage {
         getFeaturesTab().click();
     }
 
+    /**
+     * Click business tab.
+     */
+    public void clickBusinessTab(){
+        getBusinessTab().click();
+    }
+
+    /**
+     * Click contact sales button.
+     */
     public void clickContactSalesButton(){
         getContactSalesButton().should(exist).click();
     }
@@ -93,6 +112,16 @@ public class GitHubPage {
      */
     public String getFeaturesFormTitleText(){
         getFeaturesForm().shouldBe(visible);
+        return getFeaturesFormTitle().getText();
+    }
+
+    /**
+     * Get business form title text string.
+     *
+     * @return the string
+     */
+    public String getBusinessFormTitleText(){
+        getBusinessForm().shouldBe(visible);
         return getFeaturesFormTitle().getText();
     }
 

@@ -11,3 +11,9 @@ Feature: Does GitHub work fine?
     Given Open GitHub page
     When Open Features tab
     Then Features tab title should be "How developers work"
+
+  Scenario: Business tab should be enabled
+
+    Given Open GitHub page
+    When Open Business tab
+    Then Business tab title should be "Bring GitHub to work"
